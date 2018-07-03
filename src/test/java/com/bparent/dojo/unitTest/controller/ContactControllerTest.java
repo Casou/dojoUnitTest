@@ -41,6 +41,18 @@ public class ContactControllerTest {
     }
 
     @Test
+    public void getContactsBetween25And35_shouldReturnListOfContacts() throws Exception {
+        String resultString = this.mockMvc.perform(get("/contacts/filtered"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        List<Contact> contacts = JsonUtil.toObjectList(resultString, Contact[].class);
+        assertEquals(2, contacts.size());
+        assertEquals("nom 1", contacts.get(0).getNom());
+        assertEquals("nom 2", contacts.get(1).getNom());
+    }
+
+    @Test
     public void postContact_shouldReturnOkStatus() throws Exception {
         String jsonContact = JsonUtil.toJson(Contact.builder()
                 .nom("nom")
