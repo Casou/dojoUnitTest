@@ -1,19 +1,28 @@
 package com.bparent.dojo.unitTest.controller;
 
 import com.bparent.dojo.unitTest.bean.Contact;
+import com.bparent.dojo.unitTest.repository.ContactRepository;
+import com.bparent.dojo.unitTest.service.ContactService;
 import com.bparent.dojo.unitTest.util.JsonUtil;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -24,11 +33,31 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class ContactControllerTest {
 
-    @Autowired
+    @Mock
+    private ContactRepository contactRepository;
+
+    @Mock
+    private ContactService contactService;
+
+    @InjectMocks
+    private ContactController contactController;
+
     private MockMvc mockMvc;
+
+    @Before
+    public void init() {
+        MockitoAnnotations.initMocks(this);
+        this.mockMvc = MockMvcBuilders.standaloneSetup(contactController).build();
+    }
 
     @Test
     public void getContacts_shouldReturnListOfContacts() throws Exception {
+        when(contactRepository.findAll()).thenReturn(Arrays.asList(
+                Contact.builder().nom("nom 1").build(),
+                Contact.builder().nom("nom 2").build(),
+                Contact.builder().nom("nom 3").build()
+        ));
+
         String resultString = this.mockMvc.perform(get("/contacts"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
@@ -42,6 +71,13 @@ public class ContactControllerTest {
 
     @Test
     public void getContactsBetween25And35_shouldReturnListOfContacts() throws Exception {
+        when(contactService.findAllBetween25And35()).thenReturn(
+                Arrays.asList(
+                        Contact.builder().nom("nom 1").build(),
+                        Contact.builder().nom("nom 2").build()
+                )
+        );
+
         String resultString = this.mockMvc.perform(get("/contacts/filtered"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
@@ -111,6 +147,8 @@ public class ContactControllerTest {
 
     @Test
     public void postContact_shouldReturnExceptionStatusIfSomethingGoesWrong() throws Exception {
+        // http://www.baeldung.com/spring-mvc-custom-validator
+
         String jsonContact = JsonUtil.toJson(Contact.builder()
                 .nom("nom")
                 .prenom("prenom")

@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 
 @Entity
 @Table(name="CONTACT")
@@ -24,6 +25,7 @@ public class Contact {
     private String prenom;
 
     @Column
+    @Email
     private String email;
 
     @Column
