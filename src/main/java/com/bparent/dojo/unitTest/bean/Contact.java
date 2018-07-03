@@ -1,4 +1,4 @@
-package com.bparent.dojo.unitTest.empty.bean;
+package com.bparent.dojo.unitTest.bean;
 
 import lombok.Builder;
 import lombok.Data;

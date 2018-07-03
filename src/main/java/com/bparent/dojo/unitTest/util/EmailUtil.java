@@ -1,4 +1,4 @@
-package com.bparent.dojo.unitTest.empty.util;
+package com.bparent.dojo.unitTest.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

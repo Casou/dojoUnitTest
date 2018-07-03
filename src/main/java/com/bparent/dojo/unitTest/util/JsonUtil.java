@@ -1,4 +1,4 @@
-package com.bparent.dojo.unitTest.empty.util;
+package com.bparent.dojo.unitTest.util;
 
 import com.google.gson.Gson;
 import lombok.SneakyThrows;

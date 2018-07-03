@@ -1,7 +1,7 @@
-package com.bparent.dojo.unitTest.empty.controller;
+package com.bparent.dojo.unitTest.controller;
 
-import com.bparent.dojo.unitTest.empty.bean.Contact;
-import com.bparent.dojo.unitTest.empty.util.JsonUtil;
+import com.bparent.dojo.unitTest.bean.Contact;
+import com.bparent.dojo.unitTest.util.JsonUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

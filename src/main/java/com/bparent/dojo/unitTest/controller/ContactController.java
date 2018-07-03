@@ -1,10 +1,9 @@
-package com.bparent.dojo.unitTest.empty.controller;
+package com.bparent.dojo.unitTest.controller;
 
-import com.bparent.dojo.unitTest.empty.bean.Contact;
+import com.bparent.dojo.unitTest.bean.Contact;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
