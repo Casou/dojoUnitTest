@@ -1,5 +1,6 @@
 package com.bparent.dojo.unitTest.bean;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -7,8 +8,8 @@ import java.time.LocalDateTime;
 @Getter
 public class IIhmBean {
 
-    private Integer id;
-    private String nomPrenom;
-    private LocalDateTime horodateur;
+    protected Integer id;
+    protected String nomPrenom;
+    protected LocalDateTime horodateur;
 
 }

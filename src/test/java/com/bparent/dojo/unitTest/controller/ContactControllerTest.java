@@ -72,7 +72,7 @@ public class ContactControllerTest {
 
     @Test
     public void getContactsSupAge_shouldReturnListOfContacts() throws Exception {
-        when(contactService.findAllBetween25And35()).thenReturn(
+        when(contactRepository.findByAgeGreaterThan(25)).thenReturn(
                 Arrays.asList(
                         Contact.builder().nom("nom 1").build(),
                         Contact.builder().nom("nom 2").build()
