@@ -39,5 +39,11 @@ public class ContactRepositoryTest {
         assertEquals(4, contacts.size());
     }
 
+    @Test
+    public void findByAgeGreaterThan_shouldReturn2Records() {
+        assertEquals(2, this.contactRepository.findByAgeGreaterThan(30).size());
+        assertEquals(1, this.contactRepository.findByAgeGreaterThan(35).size());
+    }
+
 }
 

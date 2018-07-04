@@ -31,7 +31,7 @@ public class ContactController {
 
     @GetMapping("/contacts/age/{age}")
     public List<Contact> getContactsSupAge(@PathVariable Integer age) {
-        return null;
+        return contactRepository.findByAgeGreaterThan(25);
     }
 
     @GetMapping("/contacts/{id]")
