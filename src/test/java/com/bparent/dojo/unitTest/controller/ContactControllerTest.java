@@ -1,6 +1,7 @@
 package com.bparent.dojo.unitTest.controller;
 
 import com.bparent.dojo.unitTest.bean.Contact;
+import com.bparent.dojo.unitTest.bean.IIhmBean;
 import com.bparent.dojo.unitTest.util.JsonUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -29,6 +32,8 @@ public class ContactControllerTest {
 
     @Test
     public void getContacts_shouldReturnListOfContacts() throws Exception {
+        // TODO AJOUTER LES MOCKS
+
         String resultString = this.mockMvc.perform(get("/contacts"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
@@ -41,7 +46,9 @@ public class ContactControllerTest {
     }
 
     @Test
-    public void getContactsBetween25And35_shouldReturnListOfContacts() throws Exception {
+    public void getContactsSup25_shouldReturnListOfContacts() throws Exception {
+        // TODO AJOUTER LES MOCKS
+
         String resultString = this.mockMvc.perform(get("/contacts/filtered"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
@@ -53,7 +60,23 @@ public class ContactControllerTest {
     }
 
     @Test
+    public void getContactById_shouldReturnABeanWithNameAndDate() throws Exception {
+        // TODO AJOUTER LES MOCKS
+
+        String resultString = this.mockMvc.perform(get("/contacts/1"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        IIhmBean iIhmBean = JsonUtil.toObject(resultString, IIhmBean.class);
+        assertEquals(Integer.valueOf(1), iIhmBean.getId());
+        assertEquals("Nom Prenom", iIhmBean.getNomPrenom());
+        assertEquals(LocalDate.now().atStartOfDay(), iIhmBean.getHorodateur().toLocalDate().atStartOfDay());
+    }
+
+    @Test
     public void postContact_shouldReturnOkStatus() throws Exception {
+        // TODO AJOUTER LES MOCKS
+
         String jsonContact = JsonUtil.toJson(Contact.builder()
                 .nom("nom")
                 .prenom("prenom")
@@ -73,6 +96,8 @@ public class ContactControllerTest {
 
     @Test
     public void postContact_shouldRejectBecauseEmailIsMalformed() throws Exception {
+        // TODO AJOUTER LES MOCKS
+
         String jsonContact = JsonUtil.toJson(Contact.builder()
                 .nom("nom")
                 .prenom("prenom")
@@ -92,6 +117,8 @@ public class ContactControllerTest {
 
     @Test
     public void postContact_shouldRejectIfBothNameAndFirstNameAreEmpty() throws Exception {
+        // TODO AJOUTER LES MOCKS
+
         String jsonContact = JsonUtil.toJson(Contact.builder()
                 .nom(null)
                 .prenom(null)
@@ -111,6 +138,8 @@ public class ContactControllerTest {
 
     @Test
     public void postContact_shouldReturnExceptionStatusIfSomethingGoesWrong() throws Exception {
+        // TODO AJOUTER LES MOCKS
+
         String jsonContact = JsonUtil.toJson(Contact.builder()
                 .nom("nom")
                 .prenom("prenom")

@@ -1,6 +1,7 @@
 package com.bparent.dojo.unitTest.controller;
 
 import com.bparent.dojo.unitTest.bean.Contact;
+import com.bparent.dojo.unitTest.bean.IIhmBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,12 @@ public class ContactController {
     }
 
     @GetMapping("/contacts/filtered")
-    public List<Contact> getContactsBetween25And35() {
+    public List<Contact> getContactsSup25() {
+        return null;
+    }
+
+    @GetMapping("/contacts/{id]")
+    public IIhmBean getContactById(@PathVariable Integer id) {
         return null;
     }
 
