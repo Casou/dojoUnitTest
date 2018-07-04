@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 public class IhmBean extends IIhmBean {
 
-    public IhmBean(Contact contact) {
-        this.id = contact.getId();
-        this.nomPrenom = contact.getNom() + " " + contact.getPrenom();
+    public IhmBean(Integer id, String nomPrenom) {
+        this.id = id;
+        this.nomPrenom = nomPrenom;
         this.horodateur = LocalDateTime.now();
     }
 

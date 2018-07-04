@@ -7,6 +7,8 @@ import com.bparent.dojo.unitTest.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.MissingResourceException;
+
 @Service
 public class ContactService {
 
@@ -14,8 +16,14 @@ public class ContactService {
     private ContactRepository contactRepository;
 
     public IIhmBean getContactById(Integer id) {
-        Contact contact = contactRepository.findById(id).get();
-        return new IhmBean(contact);
+        Contact contact = contactRepository.findById(id)
+                .orElseThrow(() -> new NullPointerException("Contact not found for id " + id));
+
+        String nomPrenom = contact.getAge() > 30 ?
+                contact.getNom() + " " + contact.getPrenom() :
+                contact.getPrenom() + " " + contact.getNom();
+
+        return new IhmBean(contact.getId(), nomPrenom);
     }
 
 }

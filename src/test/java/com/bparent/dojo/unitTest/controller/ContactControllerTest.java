@@ -2,6 +2,7 @@ package com.bparent.dojo.unitTest.controller;
 
 import com.bparent.dojo.unitTest.bean.Contact;
 import com.bparent.dojo.unitTest.bean.IIhmBean;
+import com.bparent.dojo.unitTest.bean.IhmBean;
 import com.bparent.dojo.unitTest.repository.ContactRepository;
 import com.bparent.dojo.unitTest.service.ContactService;
 import com.bparent.dojo.unitTest.util.JsonUtil;
@@ -23,6 +24,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -90,30 +93,19 @@ public class ContactControllerTest {
     }
 
     @Test
-    public void getContactById_shouldReturnABeanWithNameAndDate() throws Exception {
-        // TODO AJOUTER LES MOCKS
+    public void getContactById_shouldReturnCallService() throws Exception {
+        when(contactService.getContactById(1)).thenReturn(new IhmBean(1, "Nom Prenom"));
 
         String resultString = this.mockMvc.perform(get("/contacts/1"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
+        verify(contactService).getContactById(1);
+        verifyNoMoreInteractions(contactService);
+
         IIhmBean iIhmBean = JsonUtil.toObject(resultString, IIhmBean.class);
         assertEquals(Integer.valueOf(1), iIhmBean.getId());
         assertEquals("Nom Prenom", iIhmBean.getNomPrenom());
-        assertEquals(LocalDate.now().atStartOfDay(), iIhmBean.getHorodateur().toLocalDate().atStartOfDay());
-    }
-
-    @Test
-    public void getContactById_shouldReturnABeanWithFirstNameBeforeNameIfAgeGreaterThan30() throws Exception {
-        // TODO AJOUTER LES MOCKS
-
-        String resultString = this.mockMvc.perform(get("/contacts/2"))
-                .andExpect(status().isOk())
-                .andReturn().getResponse().getContentAsString();
-
-        IIhmBean iIhmBean = JsonUtil.toObject(resultString, IIhmBean.class);
-        assertEquals(Integer.valueOf(1), iIhmBean.getId());
-        assertEquals("Prenom Nom", iIhmBean.getNomPrenom());
         assertEquals(LocalDate.now().atStartOfDay(), iIhmBean.getHorodateur().toLocalDate().atStartOfDay());
     }
 

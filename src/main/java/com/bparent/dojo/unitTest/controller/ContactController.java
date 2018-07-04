@@ -34,9 +34,9 @@ public class ContactController {
         return contactRepository.findByAgeGreaterThan(age);
     }
 
-    @GetMapping("/contacts/{id]")
+    @GetMapping("/contacts/{id}")
     public IIhmBean getContactById(@PathVariable Integer id) {
-        return null;
+        return contactService.getContactById(id);
     }
 
     @PostMapping("/contacts")
