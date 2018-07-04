@@ -15,8 +15,8 @@ public class ContactController {
         return null;
     }
 
-    @GetMapping("/contacts/filtered")
-    public List<Contact> getContactsSup25() {
+    @GetMapping("/contacts/age/{age}")
+    public List<Contact> getContactsSupAge(@PathVariable Integer age) {
         return null;
     }
 

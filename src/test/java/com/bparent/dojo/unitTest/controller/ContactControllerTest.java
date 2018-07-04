@@ -46,10 +46,10 @@ public class ContactControllerTest {
     }
 
     @Test
-    public void getContactsSup25_shouldReturnListOfContacts() throws Exception {
+    public void getContactsSupAge_shouldReturnListOfContacts() throws Exception {
         // TODO AJOUTER LES MOCKS
 
-        String resultString = this.mockMvc.perform(get("/contacts/filtered"))
+        String resultString = this.mockMvc.perform(get("/contacts/age/25"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
