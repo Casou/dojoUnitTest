@@ -71,7 +71,7 @@ public class ContactControllerTest {
     }
 
     @Test
-    public void getContactsSup25_shouldReturnListOfContacts() throws Exception {
+    public void getContactsSupAge_shouldReturnListOfContacts() throws Exception {
         when(contactService.findAllBetween25And35()).thenReturn(
                 Arrays.asList(
                         Contact.builder().nom("nom 1").build(),
@@ -79,7 +79,7 @@ public class ContactControllerTest {
                 )
         );
 
-        String resultString = this.mockMvc.perform(get("/contacts/filtered"))
+        String resultString = this.mockMvc.perform(get("/contacts/age/25"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
