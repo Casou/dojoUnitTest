@@ -74,6 +74,20 @@ public class ContactControllerTest {
     }
 
     @Test
+    public void getContactById_shouldReturnABeanWithFirstNameBeforeNameIfAgeGreaterThan30() throws Exception {
+        // TODO AJOUTER LES MOCKS
+
+        String resultString = this.mockMvc.perform(get("/contacts/2"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        IIhmBean iIhmBean = JsonUtil.toObject(resultString, IIhmBean.class);
+        assertEquals(Integer.valueOf(1), iIhmBean.getId());
+        assertEquals("Prenom Nom", iIhmBean.getNomPrenom());
+        assertEquals(LocalDate.now().atStartOfDay(), iIhmBean.getHorodateur().toLocalDate().atStartOfDay());
+    }
+
+    @Test
     public void postContact_shouldReturnOkStatus() throws Exception {
         // TODO AJOUTER LES MOCKS
 
@@ -92,6 +106,8 @@ public class ContactControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().string("ok"));
+
+        // TODO AJOUTER UN TEST POUR SAVOIR CE QUI S'EST PASSE DANS LE CONTROLLER
     }
 
     @Test
